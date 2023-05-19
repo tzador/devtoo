@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("SECRET_POSTGRES_PRISMA_URL")
+}
+
+model Article {
+  id           Int      @id
+  url          String   @unique
+  published_at DateTime
+
+  title       String
+  description String
+  keywords    String[]
+  image       String
+
+  author_username String
+  author_name     String
+  author_avatar   String
+
+  embedding Unsupported("vector(1536)")
+
+  @@map("article")
+}
