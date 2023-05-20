@@ -7,8 +7,11 @@
     var ogDescription = document.querySelector(`meta[property='og:description']`);
     var description = (ogDescription && ogDescription.getAttribute("content")) || "";
     console.log(description);
-    var q = title + "." + description;
-    var url = "https://devtoo.dev/search?q=" + encodeURIComponent(q.trim());
-    location.href = url;
+    var q = (title + "." + description).trim();
+    if (q === ".") {
+      location.href = "https://devtoo.dev/";
+    } else {
+      location.href = "https://devtoo.dev/search?q=" + encodeURIComponent(q.trim());
+    }
   }
 })();
