@@ -3,7 +3,7 @@
   <!-- svelte-ignore a11y-invalid-attribute -->
   To install the bookmarklet, drag this link:
   <a
-    href="javascript:var devtoo_script=document.createElement('script');devtoo_script.src='http://127.0.0.1:5173/bookmarklet.js';document.body.appendChild(devtoo_script)"
+    href="javascript:var devtoo_script=document.createElement('script');devtoo_script.src='https://devtoo.dev/bookmarklet.js';document.body.appendChild(devtoo_script)"
   >
     devtoo
   </a>
