@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol", "postgresqlExtensions"]
 }
 
 datasource db {
@@ -24,7 +25,7 @@ model Article {
   author_name     String
   author_avatar   String
 
-  embedding Unsupported("vector(1536)")
+  embedding Unsupported("vector(1536)")?
 
   @@map("article")
 }
