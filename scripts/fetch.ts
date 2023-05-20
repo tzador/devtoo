@@ -12,8 +12,35 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+const existing = new Set<string>();
+
 const queue: string[] = [];
 let cnt = 0;
+
+const fetch_existing = async () => {
+	console.log('Fetching existing articles');
+	const start = Date.now();
+
+	let last_id = -1;
+
+	for (;;) {
+		const articles: { id: number; url: string }[] = await prisma.$queryRaw`
+			SELECT id, url
+			FROM article
+			WHERE id > ${last_id}
+			ORDER BY id ASC
+			LIMIT 10000;`;
+		if (articles.length === 0) break;
+		for (const article of articles) {
+			existing.add(article.url);
+		}
+		last_id = articles[articles.length - 1].id;
+		console.log('Existing articles batch', articles.length);
+	}
+
+	const duration = Date.now() - start;
+	console.log('Fetched', existing.size, 'exsiting in', duration, 'ms');
+};
 
 const workit = async () => {
 	const url = queue.shift();
@@ -22,12 +49,7 @@ const workit = async () => {
 	cnt++;
 	for (let i = 0; i < 11; i++) {
 		try {
-			const existing = await prisma.article.findUnique({ where: { url } });
-
-			if (existing) {
-				console.log('skipping', cnt);
-				break;
-			}
+			if (existing.has(url)) break;
 
 			const article = await parse(url);
 
@@ -55,6 +77,9 @@ const workit = async () => {
 };
 
 const main = async () => {
+	await fetch_existing();
+
+	console.log("Fetching dev.to's sitemap");
 	const { data } = await axios.get('https://dev.to/sitemap-index.xml');
 	const $ = cheerio.load(data, { xmlMode: true });
 
@@ -75,7 +100,7 @@ const main = async () => {
 		});
 	}
 
-	console.log(queue.length);
+	console.log('Total articles on dev.to:', queue.length);
 
 	for (let i = 0; i < 32; i++) {
 		workit();
