@@ -33,9 +33,7 @@
   <a style="color: #7950f2" href="/bookmarklet">bookmarklet</a>
   <a style="color: #228be6" target="_blank" href="mailto:tzador@gmail.com">feedback</a>
   <a style="color: #0ca678" target="_blank" href="https://github.com/tzador/devtoo">github</a>
-  <a style="color: #82c91e" target="_blank" href="https://dev.to/tzador/use-emojis-as-favicons-14e3"
-    >dev.to</a
-  >
+  <a style="color: #82c91e" target="_blank" href="https://dev.to/">dev.to</a>
   <a style="color: #fd7e14" href="/about">about</a>
 </nav>
 
