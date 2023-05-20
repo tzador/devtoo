@@ -1,4 +1,3 @@
-console.log("content.js");
 if (location.href.match(/^https:\/\/dev.to\/[^\/]+\/[^\/]+$/)) {
   const a = document.createElement("a");
   a.innerText = "Related Articles";

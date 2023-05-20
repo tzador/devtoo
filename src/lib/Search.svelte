@@ -9,20 +9,21 @@
 
 {#key q}
   {#await search()}
-    <div><img src="/loading.gif" alt="Loading.." /></div>
+    <div class="loading" />
   {:then articles}
     <div class="articles">
       {#each articles as article (article.id)}
+        {@const url = article.url
+          .replace("dev.to", location.host)
+          .replace(/^https:/, location.protocol)}
+
         <div class="article">
           <div class="info">
             <div class="title">
               <a target="_blank" href={article.url}>{article.title}</a>
-              <a
-                class="more"
-                href={article.url
-                  .replace("dev.to", location.host)
-                  .replace(/^https:/, location.protocol)}>more like this</a
-              >
+              {#if url !== location.href}
+                <a class="more" href={url}>more like this</a>
+              {/if}
             </div>
             <div class="description">{article.description}</div>
             <div class="meta">
@@ -30,7 +31,7 @@
               <a class="author" href={"https://dev.to/" + article.author_username} target="_blank">
                 {article.author_name}
               </a>
-              <div class="date">{new Date(article.published_at).toLocaleDateString()}</div>
+              <div class="date">{new Date(article.published_at).toDateString()}</div>
               <div class="keywords">
                 {#each article.keywords as keyword (keyword)}
                   <a class="keyword" href={"/search?q=" + keyword}>{keyword}</a>
@@ -117,5 +118,31 @@
 
   .article .meta .author {
     color: black;
+  }
+
+  .loading {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    right: 0;
+    height: 3rem;
+    z-index: 0;
+
+    background: linear-gradient(90deg, dodgerblue 50%, transparent 50%),
+      linear-gradient(90deg, dodgerblue 50%, transparent 50%),
+      linear-gradient(0deg, dodgerblue 50%, transparent 50%),
+      linear-gradient(0deg, dodgerblue 50%, transparent 50%);
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-size: 15px 3rem, 15px 3rem, 3rem 15px, 3rem 15px;
+    background-position: 0px 0px, 100% 100px, 0px 100px, 100% 0px;
+    animation: loading-animation 4s infinite linear;
+  }
+  @keyframes loading-animation {
+    0% {
+      background-position: 0px 0px, 300px 116px, 0px 150px, 216px 0px;
+    }
+    100% {
+      background-position: 300px 0px, 0px 116px, 0px 0px, 216px 150px;
+    }
   }
 </style>
