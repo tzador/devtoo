@@ -3,7 +3,7 @@
 https://devtoo.dev
 
 ## Description
-DevToo is a dev.to article recommendation and search engine developed to improve the scope and relevancy of suggested articles for readers.
+DevToo is a https://dev.to article recommendation and search engine developed to improve the scope and relevancy of suggested articles for readers.
 This project extends beyond the default four articles typically recommended by dev.to.
 It offers a web interface, a bookmarklet, and a Chrome extension for easy integration with dev.to.
 
