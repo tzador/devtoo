@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import Search from '$lib/Search.svelte';
+  import { page } from "$app/stores";
+  import Search from "$lib/Search.svelte";
 
-	export let data;
+  export let data;
 </script>
 
 {#key $page.url.toString()}
-	<Search q={data.q} />
+  <Search q={data.q} />
 {/key}
