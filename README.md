@@ -1,38 +1,22 @@
-# create-svelte
+# DevToo - dev.to Article Recommender
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+https://devtoo.dev
 
-## Creating a project
+## Description
+DevToo is a dev.to article recommendation and search engine developed to improve the scope and relevancy of suggested articles for readers.
+This project extends beyond the default four articles typically recommended by dev.to.
+It offers a web interface, a bookmarklet, and a Chrome extension for easy integration with dev.to.
 
-If you're seeing this, you've probably already done this step. Congrats!
+The recommendation system in DevToo is built using OpenAI text vector embeddings and a pgvector PostgreSQL index.
+These technologies help to search for articles based on the cosine similarity of their titles, descriptions, and tags,
+enhancing the quality of the recommended articles.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+The user interface is implemented with SvelteKit, while Prisma is employed for PostgreSQL database connections.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Contributing
+Contributions are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
-## Developing
+Please ensure to update tests as appropriate.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+License
+DevToo is licensed under the MIT license. For more information, refer to the LICENSE file in this repository.

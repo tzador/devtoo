@@ -1,0 +1,25 @@
+name: Fetch articles
+
+permissions: write-all
+
+on:
+  schedule:
+    - cron: '47 * * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    name: fetch articles
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2.3.4
+      - name: setup node
+        uses: actions/setup-node@v2
+      - name: install
+        run: yarn
+      - name: fetch
+        run: yarn fetch
+        env:
+          SECRET_OPENAI_API_KEY: ${{ secrets.SECRET_OPENAI_API_KEY }}
+          SECRET_POSTGRES_PRISMA_URL: ${{ secrets.SECRET_POSTGRES_PRISMA_URL }}

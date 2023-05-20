@@ -59,11 +59,13 @@
 
   nav .dev {
     position: relative;
+    font-weight: bold;
     top: 0.125rem;
   }
 
   nav .too {
     position: relative;
+    font-weight: bold;
     top: -0.125rem;
   }
 

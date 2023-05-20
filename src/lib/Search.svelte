@@ -9,7 +9,7 @@
 
 {#key q}
   {#await search()}
-    <div>Loading...</div>
+    <div><img src="/loading.gif" alt="Loading.." /></div>
   {:then articles}
     <div class="articles">
       {#each articles as article (article.id)}
@@ -78,10 +78,14 @@
     font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
     border-radius: 1rem;
-    opacity: 0.25;
   }
   .article .info .more:hover {
-    opacity: 1;
+    opacity: 0.8;
+  }
+
+  .article .date {
+    font-size: 0.75rem;
+    opacity: 0.5;
   }
 
   .article .keywords {
