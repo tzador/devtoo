@@ -1,1 +1,5 @@
-<h1>DevToo</h1>
+<script lang="ts">
+	import Search from '$lib/Search.svelte';
+</script>
+
+<Search />

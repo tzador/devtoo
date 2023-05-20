@@ -19,10 +19,15 @@ const workit = async () => {
 	const url = queue.shift();
 	if (!url) return;
 
+	cnt++;
 	for (let i = 0; i < 11; i++) {
 		try {
 			const existing = await prisma.article.findUnique({ where: { url } });
-			if (existing) break;
+
+			if (existing) {
+				console.log('skipping', cnt);
+				break;
+			}
 
 			const article = await parse(url);
 
@@ -39,11 +44,10 @@ const workit = async () => {
 			UPDATE article
 			SET embedding = ${embedding}::vector
 			WHERE id = ${article.id}`;
-			cnt++;
-			console.log(cnt);
+			console.log('fetched', cnt);
 			break;
 		} catch (error) {
-			console.error(error);
+			console.error(error.message);
 		}
 	}
 
