@@ -16,18 +16,26 @@ export const GET: RequestHandler = async ({ url }) => {
   const q = url.searchParams.get("q") ?? undefined;
 
   if (q) {
-    const result = await openai.createEmbedding({
-      model: "text-embedding-ada-002",
-      input: q
-    });
-    const embedding = result.data.data[0].embedding;
-    const vector = `[${embedding.join(",")}]`;
-    const articles: Article[] = await prisma.$queryRaw`
+    for (let i = 0; i < 4; i++) {
+      try {
+        const result = await openai.createEmbedding({
+          model: "text-embedding-ada-002",
+          input: q
+        });
+        const embedding = result.data.data[0].embedding;
+
+        const vector = `[${embedding.join(",")}]`;
+        const articles: Article[] = await prisma.$queryRaw`
         SELECT id, url, published_at, title, description, keywords, image, author_username, author_name, author_avatar
         FROM article
         ORDER BY embedding <=> ${vector}::vector
         LIMIT ${LIMIT};`;
-    return json(articles);
+        return json(articles);
+      } catch {
+        console.error("Failed to fetch articles");
+      }
+    }
+    return json([]);
   } else {
     const articles: Article[] = await prisma.$queryRaw`
         SELECT id, url, published_at, title, description, keywords, image, author_username, author_name, author_avatar
